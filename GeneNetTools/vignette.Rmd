@@ -1,0 +1,140 @@
+---
+title: "GeneNetTools"
+author: "Victor Bernal"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GeneNetTools
+
+**GeneNetTools** is an R package for network analysis using Gaussian graphical models, i.e. partial correlations. It is  designed to analyse data in the high dimensional setting, i.e. few data points and many variables. It performs (differential) networks analysis using novel statistical tests for partial correlations with shrinkage (a type of regularization). It can be used together with the popular R package *GeneNet*, or as a stand alone tool.
+
+**GeneNetTools** can be applied to other data besides bioinformatics (e.g. gene expression), as its only requirement is *multivariate Gaussian data*.
+
+ 
+###  Load GeneNetTools and GeneNet
+```{r , echo=FALSE}
+#============================
+# Load GeneNetTools and GeneNet
+#============================
+library(GeneNetTools)
+library(GeneNet)
+
+#============================
+# simulate data for 100 variables with 30 datapoints
+p = 100; n = 30;
+
+true.pcor <- GeneNet::ggm.simulate.pcor(num.nodes = p, etaA = 0.2)
+
+dat.sim <- GeneNet::ggm.simulate.data(sample.size = n, true.pcor)
+
+#============================
+# GeneNet and GeneNetTools retrieve the same partial correlations
+#============================
+estimated.pcor <- GGM.shrunk(dat.sim) # vector
+estimated.pcor.genenet <- ggm.estimate.pcor(dat.sim) # matrix
+```
+
+### same partial correlations
+```{r}
+estimated.pcor[1:5,1] 
+sm2vec(estimated.pcor.genenet)[1:5] 
+```
+
+### p-values: Test H_0: pcor = 0
+```{r , echo=FALSE}
+#============================
+# p values: test H_0: pcor = 0
+#============================
+
+# new t statistics
+pval.ttest <- ttest.shrunk(x = estimated.pcor)
+
+# which are significant?
+#pval.ttest[which(pval.ttest < 0.05)]
+```
+
+### Confidence Intervals
+```{r}
+#============================
+# Confidence Intervals
+#===========================
+ci <- confint.GGM(x = estimated.pcor, alpha = 0.05)
+head(ci)
+```
+
+### Compare GGMs. Compare 2 pcors: Test H_0: pcor - pcor2 = 0
+```{r, echo=FALSE}
+#============================
+# Compare GGMs (compare 2 pcors): test H_0: pcor - pcor2 = 0
+#===========================
+# simulate data for 2 network: 100 variables with 30 and 70 datapoints
+p = 100; n1 = 30; n2 = 70;
+
+true.pcor <- GeneNet::ggm.simulate.pcor(num.nodes = p, etaA = 0.2)
+
+dat.sim1 <- GeneNet::ggm.simulate.data(sample.size = n1, true.pcor)
+dat.sim2 <- GeneNet::ggm.simulate.data(sample.size = n2, true.pcor)
+
+#===========================
+# estimate pcors and compare
+estimated.pcor1 <- GGM.shrunk(dat.sim1)
+estimated.pcor2 <- GGM.shrunk(dat.sim2)
+```
+
+
+```{r}
+z <- compare.GGM(x1 = estimated.pcor1 ,x2 = estimated.pcor2 )
+head(z)
+
+# which are significant?
+sum(z$sig. =='*')
+
+```
+
+### Plot network
+```{r}
+#------------------
+# Graph
+#------------------
+library(igraph)
+
+PCOR = -log10(vec2sm(as.matrix(pval.ttest)))
+diag(PCOR) = 1
+
+g.pcor = graph_from_adjacency_matrix(
+  PCOR ,
+  mode = c("undirected"),
+  weighted = NULL,
+  diag = FALSE,
+  add.colnames = NA,
+  add.rownames = NA
+)
+
+l <- layout_nicely(g.pcor,dim = 2)
+
+plot(g.pcor,
+     edge.width = 2,
+     edge.color = c(rgb(0.5, 0, 0,0.5)) ,
+     vertex.color = "black", 
+     vertex.size = 2,
+     vertex.frame.color = "black",
+     vertex.label.color = "black",
+     vertex.label.cex = 0.45,
+     vertex.label.dist = 0.5,
+     layout = l)
+legend('bottomright', c("only C57BL", "only 6J-DBA/2J"), pch=20,
+       col= c(rgb(0.5, 0, 0,0.5), rgb(0,0,0.5,0.5)),
+       pt.bg = c(rgb(0.5, 0, 0,0.5), rgb(0,0,0.5,0.5)),
+       pt.cex=0.75, cex = 0.5, bty = "n", ncol = 1)
+
+
+```
+### Session info
+```{r}
+sessionInfo()
+```
