@@ -1,0 +1,54 @@
+{
+  "type":"object",
+  "properties": {
+    "filename": {
+      "title": "Filename",
+      "description": "Data matrix with p columns and n rows",
+      "type": "string",
+      "required": true
+    },
+    "variables": {
+      "title": "Column names",
+      "description": "Numeric columns to be used",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "p": {
+      "title" : "p",
+      "description": "number of variables",
+      "type": "integer"
+    },
+    "n": {
+      "title" : "n",
+      "description": "sample size",
+      "type": "integer"
+    },
+    "lambda": {
+      "title" : "Lambda",
+      "description": "shrinkage value",
+      "type": "number",
+      "required": true
+    },
+    "number": {
+      "title" : "Number of montecarlo iterations",
+      "description": "Montecarlo iterations",
+      "type": "number",
+      "required": true
+    },
+    "rep": {
+      "title" : "Repetitions",
+      "description": "Times to repeat the simulation",
+      "type": "integer",
+      "required": true
+    },
+    "etaA": {
+      "title" : "Repetitions",
+      "description": "Times to repeat the simulation",
+      "type": "integer",
+      "required": true
+    },
+  }
+}

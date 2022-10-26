@@ -18,9 +18,6 @@ vector
 \description{
 Symm matrix to a vector
 }
-\examples{
-
-}
 \references{
 \url{https://doi.org/10.2202/1544-6115.1175}
 }

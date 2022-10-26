@@ -1,0 +1,33 @@
+{
+  "type":"object",
+  "properties": {
+    "filename": {
+      "title": "Filename",
+      "description": "Data matrix with p columns and n rows",
+      "type": "string",
+      "required": true
+    },
+    "variables": {
+      "title": "Column names",
+      "description": "Numeric columns to be used",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "lambda": {
+      "title" : "Lambda",
+      "description": "Shrinkage value",
+      "type": "number",
+      "required": true
+    },
+    "verbose": {
+      "title" : "Verbose",
+      "description": "shrinkage value",
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

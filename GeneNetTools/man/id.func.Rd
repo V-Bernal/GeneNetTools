@@ -16,9 +16,6 @@ names (identifiers) for the correlations
 \description{
 assign names.
 }
-\examples{
-
-}
 \references{
 \url{https://doi.org/10.2202/1544-6115.1175}
 }

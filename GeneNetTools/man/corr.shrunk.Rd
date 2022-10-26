@@ -20,9 +20,6 @@ The matrix of (Pearson's) correlations \code{R} with shrinkage.
 \description{
 Computes the (Pearson's) correlation matrix with shrinkage.
 }
-\examples{
-
-}
 \references{
 \url{https://doi.org/10.2202/1544-6115.1175}
 }

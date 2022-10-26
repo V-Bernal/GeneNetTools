@@ -1,0 +1,5 @@
+{
+    "filename":"data/testdata.csv",
+    "lambda": 0.1,
+    "verbose": true
+}
