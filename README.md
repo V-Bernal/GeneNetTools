@@ -5,6 +5,7 @@ R package for Gaussian graphical models with the (Ledoit Wolf) shrinkage
 ```{r}
 install.packages("devtools")
 library(devtools)
-install_github("V-Bernal/GeneNetTools")
+install_github("V-Bernal/GeneNetTools", subdir="GeneNetTools")
+
 ```
 The script Analysis_GeneNetTools.R includes all the analysis and tests. 
