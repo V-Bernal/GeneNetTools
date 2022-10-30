@@ -19,7 +19,7 @@
 #'
 #' @return vector
 #'
-#' @examples
+# #' @examples
 #'
 sm2vec.tools = function (m, diag = FALSE) {
 

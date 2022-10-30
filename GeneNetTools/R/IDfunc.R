@@ -18,7 +18,7 @@
 #'
 #' @return names (identifiers) for the correlations
 #'
-#' @examples
+# #' @examples
 #'
 #' @export
 id.func = function(x){

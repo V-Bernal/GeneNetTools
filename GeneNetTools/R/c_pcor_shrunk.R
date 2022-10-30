@@ -15,7 +15,7 @@ validate_parameters <- function(params,pschema="pca_projection_schema.json"){
 #' @param filename a string data file name including the relative path
 #' @param select_columns a vector including the column names to be read from the data file
 #'
-#' @return if succeds, this function returns a data table
+#' @return if succeed, this function returns a data table
 #' @export
 #' @keywords internal
 #'
@@ -63,30 +63,31 @@ validate_json_file <- function(fileparams) {
 }
 
 
-#' Title
+#' Pcor_Shrunk
 #'
 #' @param lparams
 #'
-#' @return
+#' @return plot
 #' @export
 #'
-#' @examples
-pcor_shrunk_api <- function(lparams){
+# #' @examples
+c_pcor_shrunk <- function(lparams){
   # read file
-
   dt <- read_data(lparams$filename,lparams$variables)
 
   result <- GGM.shrunk(x = as.matrix(dt), lambda = lparams$lambda, verbose = lparams$verbose)
   # pl <- hist(result)
   #print(pl)
 
-  print(class(result))
-
-  result <- abs(result)>0.3
+  # result <- abs(result)>0.3
 
   GGM <- GeneNetTools::vec2sm.tools(
     result
   )
+
+  GGM[GGM < .3] <- 0
+  print(class(GGM))
+
 
   diag(GGM) <- 0
 

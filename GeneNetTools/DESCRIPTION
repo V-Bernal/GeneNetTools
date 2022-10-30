@@ -1,12 +1,19 @@
 Package: GeneNetTools
 Type: Package
 Date: 2022-05-15 12:50:02 UTC
-Title: Gaussian graphical models (partial correlations) using the Ledoit-Wolf shrinkage (regularization).
+Title: Gaussian graphical models (partial correlations) using the Ledoit-Wolf shrinkage (regularization)
 Version: 0.1.0
 Author: Victor Bernal [aut, cre]
 Maintainer: Victor Bernal <v.a.bernal.arzola@rug.nl><victor.arturo.bernal@gmail.com>
 Description: Gaussian graphical models (i.e. partial correlation) with the Ledoit-Wolf covariance shrinkage (regularization). It includes functions to estimate and test (partial) correlations. It has been successfully used for learning large-scale gene expression networks. 
-Imports: GeneNet, corpcor, stats4
+Imports: 
+    GeneNet,
+    corpcor,
+    stats4,
+    data.table,
+    igraph,
+    jsonlite,
+    jsonvalidate
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

@@ -18,7 +18,7 @@
 #'
 #' @return symmetric matrix
 #'
-#' @examples
+# #' @examples
 #'
 #' @export
 vec2sm.tools = function(vec){

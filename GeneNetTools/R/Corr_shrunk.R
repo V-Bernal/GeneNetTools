@@ -20,7 +20,7 @@
 #'
 #' @return The matrix of (Pearson's) correlations \code{R} with shrinkage.
 #'
-#' @examples
+# #' @examples
 #'
 #' @export
 corr.shrunk <- function( x = NULL, lambda, verbose = TRUE ) {
