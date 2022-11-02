@@ -75,18 +75,15 @@ c_pcor_shrunk <- function(lparams){
   # read file
   dt <- read_data(lparams$filename,lparams$variables)
 
-  result <- GGM.shrunk(x = as.matrix(dt), lambda = lparams$lambda, verbose = lparams$verbose)
-  # pl <- hist(result)
-  #print(pl)
-
-  # result <- abs(result)>0.3
-
-  GGM <- GeneNetTools::vec2sm.tools(
+  result <- GGM.shrunk(x = as.matrix(dt), lambda = lparams$lambda,
+                       verbose = lparams$verbose)
+  print(length(result))
+  GGM <- vec2sm(
     result
   )
 
-  GGM[GGM < .3] <- 0
-  print(class(GGM))
+  GGM[abs(GGM) < lparams$cutoff] <- 0
+  print(GGM)
 
 
   diag(GGM) <- 0
@@ -99,8 +96,8 @@ c_pcor_shrunk <- function(lparams){
       weighted = TRUE
     )
 
-  plot(g1 #,
-#       layout = layout_nicely(g1)
+  plot(g1 ,
+       layout = igraph::layout_nicely(g1)
   )
 
 }

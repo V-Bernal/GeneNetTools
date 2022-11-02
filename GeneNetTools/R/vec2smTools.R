@@ -27,7 +27,7 @@ vec2sm.tools = function(vec){
 
   id <- which(x = lower.tri(x = diag(p), diag = F) , arr.ind = T)
 
-  m <- matrix(, p,p)
+  m <- matrix(NA, p,p)
 
   m[id] <- vec
 

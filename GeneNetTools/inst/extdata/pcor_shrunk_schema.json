@@ -22,6 +22,12 @@
       "type": "number",
       "required": true
     },
+    "cutoff": {
+      "title" : "Cutoff",
+      "description": "Threshold value partial correlation",
+      "type": "number",
+      "required": true
+    },
     "verbose": {
       "title" : "Verbose",
       "description": "shrinkage value",
