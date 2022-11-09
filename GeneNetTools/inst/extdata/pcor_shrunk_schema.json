@@ -16,21 +16,15 @@
       },
       "uniqueItems": true
     },
-    "lambda": {
-      "title" : "Lambda",
-      "description": "Shrinkage value",
-      "type": "number",
-      "required": true
-    },
     "cutoff": {
       "title" : "Cutoff",
-      "description": "Threshold value partial correlation",
+      "description": "Threshold for the p-value of the partial correlation",
       "type": "number",
       "required": true
     },
     "verbose": {
       "title" : "Verbose",
-      "description": "shrinkage value",
+      "description": "Detailed description",
       "type": "boolean",
       "default": true,
       "required": true

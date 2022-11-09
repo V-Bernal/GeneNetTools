@@ -1,6 +1,5 @@
 {
-    "filename":"data/testdata.csv",
-    "lambda": 0.1,
+    "filename":"data/ecoli2.csv",
     "verbose": true,
-    "cutoff": 0.1
+    "cutoff": 0.01
 }
