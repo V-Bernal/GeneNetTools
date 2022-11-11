@@ -81,7 +81,7 @@ validate_json_file <- function(fileparams) {
 #' @export
 #'
 # #' @examples
-ci_pcor_shrunk <- function(lparams){
+c_pcor_shrunk <- function(lparams){
   # read file
   dt <- read_data(lparams$filename,lparams$variables)
 
