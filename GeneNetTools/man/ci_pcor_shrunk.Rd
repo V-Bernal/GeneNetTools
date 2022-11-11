@@ -7,8 +7,8 @@
 ci_pcor_shrunk(lparams)
 }
 \arguments{
-\item{lparams}{a list of parameters created using the `validate_json_file` function, which receives
-a JSON file. This file should contain the following name/value pairs.
+\item{lparams}{a list of parameters created using a JSON file.
+This file should contain the following name/value pairs.
 
 "filename": <string, required>
 

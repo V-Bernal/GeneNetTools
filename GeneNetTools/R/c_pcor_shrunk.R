@@ -66,8 +66,8 @@ validate_json_file <- function(fileparams) {
 #' ci_pcor_shrunk
 #'
 #' This function computes confidence intervals for the partial correlation with shrinkage.
-#' @param lparams a list of parameters created using the `validate_json_file` function, which receives
-#' a JSON file. This file should contain the following name/value pairs.
+#' @param lparams a list of parameters created using a JSON file.
+#' This file should contain the following name/value pairs.
 #'
 #' "filename": <string, required>
 #'

@@ -1,5 +1,5 @@
 {
-    "filename":"data/ecoli2.csv",
+    "filename":"data/ecoli.csv",
     "verbose": true,
     "cutoff": 0.01
 }
