@@ -1,0 +1,30 @@
+{
+  "type":"object",
+  "properties": {
+    "filename": {
+      "title": "Filename",
+      "description": "Data matrix with p columns and n rows",
+      "type": "string",
+      "required": true
+    },
+    "filename2": {
+      "title": "Filename2",
+      "description": "Data matrix with p columns and n rows",
+      "type": "string",
+      "required": true
+    },
+    "cutoff": {
+      "title" : "Cutoff",
+      "description": "Threshold for the p-value of the partial correlation",
+      "type": "number",
+      "required": true
+    },
+    "verbose": {
+      "title" : "Verbose",
+      "description": "Detailed description",
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

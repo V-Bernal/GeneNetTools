@@ -10,7 +10,9 @@ c_zscore_shrunk(lparams)
 \item{lparams}{a list of parameters created using a JSON file.
 This file should contain the following name/value pairs.
 
-"filename": <string, required>
+"filename": <string, required data file 1>
+
+"filename2": <string, required data file 2>
 
 "variables": <array, strings representing column names>
 
@@ -22,5 +24,5 @@ This file should contain the following name/value pairs.
 a plot
 }
 \description{
-c_zscore_shrunk
+This function compares two networks using two data files
 }
