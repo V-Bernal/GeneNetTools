@@ -2,7 +2,7 @@
 % Please edit documentation in R/c_pcor_shrunk.R
 \name{c_pcor_shrunk}
 \alias{c_pcor_shrunk}
-\title{ci_pcor_shrunk}
+\title{Partial correlation shrunk}
 \usage{
 c_pcor_shrunk(lparams)
 }

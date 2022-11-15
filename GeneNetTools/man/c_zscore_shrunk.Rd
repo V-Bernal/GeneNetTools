@@ -26,3 +26,6 @@ a plot
 \description{
 This function compares two networks using two data files
 }
+\details{
+TODO: add proper title and description
+}

@@ -63,7 +63,7 @@ validate_json_file <- function(fileparams) {
 }
 
 
-#' ci_pcor_shrunk
+#' Partial correlation shrunk
 #'
 #' This function computes confidence intervals for the partial correlation with shrinkage.
 #' @param lparams a list of parameters created using a JSON file.
@@ -118,6 +118,8 @@ c_pcor_shrunk <- function(lparams){
 
 #==============================
 #' pval_pcor_shrunk
+#'
+#' TODO: add proper title and description
 #'
 #' @param lparams a list of parameters created using a JSON file.
 #' This file should contain the following name/value pairs.
@@ -178,6 +180,8 @@ c_pval_pcor_shrunk <- function(lparams){
 #' c_zscore_shrunk
 #'
 #' This function compares two networks using two data files
+#'
+#' TODO: add proper title and description
 #'
 #' @param lparams a list of parameters created using a JSON file.
 #' This file should contain the following name/value pairs.

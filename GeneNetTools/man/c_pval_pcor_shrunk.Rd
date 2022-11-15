@@ -22,5 +22,5 @@ This file should contain the following name/value pairs.
 a plot
 }
 \description{
-pval_pcor_shrunk
+TODO: add proper title and description
 }
