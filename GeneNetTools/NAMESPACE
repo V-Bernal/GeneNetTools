@@ -2,6 +2,8 @@
 
 export(GGM.shrunk)
 export(c_pcor_shrunk)
+export(c_pval_pcor_shrunk)
+export(c_zscore_shrunk)
 export(compare.GGM)
 export(confint.GGM)
 export(corr.shrunk)

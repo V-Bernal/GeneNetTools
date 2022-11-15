@@ -33,6 +33,7 @@ estimated.pcor <- GGM.shrunk(dat.sim)
 confint.GGM( x = estimated.pcor, alpha = 0.05 )
 
 #---------------------------------
+
 }
 \references{
 \url{to be submitted}

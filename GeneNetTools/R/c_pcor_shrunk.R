@@ -83,65 +83,27 @@ validate_json_file <- function(fileparams) {
 # #' @examples
 c_pcor_shrunk <- function(lparams){
   # read file
+
+  # read file
   dt <- read_data(lparams$filename,lparams$variables)
 
+  # estimate partial correlations with shrinkage
   estimated.pcor.ecoli <- GGM.shrunk(x = as.matrix(dt),
-                       verbose = lparams$verbose)
+                                     verbose = lparams$verbose)
 
-  # GGM <- vec2sm(
-  #   result
-  # )
-
-  # p-values
-  # pval.tts.ecoli <- ttest.shrunk(x = result)
-  #
-  # # GGM[abs(GGM) < lparams$cutoff] <- 0
-  # # print(GGM)
-  #
-  # GGM <- vec2sm(
-  #   pval.tts.ecoli
-  # )
-  #
-  # GGM <- abs(GGM) < lparams$cutoff
-  # diag(GGM) <- 0
-  #
-  # g1 <-
-  #   igraph::graph_from_adjacency_matrix(
-  #     abs(GGM),
-  #     mode = c("undirected"),
-  #     diag = FALSE,
-  #     weighted = TRUE
-  #   )
-  #
-  # plot(g1,
-  #      edge.width = 3,
-  #      edge.color = "#fc8d62",
-  #      vertex.color = "#8da0cb", vertex.size = 3,
-  #      vertex.frame.color = "#8da0cb",
-  #      vertex.label.color = "black",
-  #      vertex.label.cex = 1,
-  #      vertex.label.dist = 1,
-  #      vertex.label = colnames(dt),
-  #      layout = igraph::layout
-  # )
-
-  #--------------------
   # Confidence intervals
   ci.ecoli <- confint.GGM(x = estimated.pcor.ecoli , alpha = 0.05)
-  ci.ecoli
-
   ci.ecoli <- ci.ecoli[order(ci.ecoli[,1], decreasing = T),]
-  ci.ecoli
 
   # CI forest plot
-  ci.ecoli.df = data.frame(ci.ecoli[ci.ecoli[,2]>0, ])
+  ci.ecoli.df <- data.frame(ci.ecoli[ci.ecoli[,2]>0, ])
 
   # un-comment for the complete list
-  ci.ecoli.df = ci.ecoli.df[1:20,]
+  ci.ecoli.df <- ci.ecoli.df[1:20,]
 
   p <- ggplot2::ggplot(data=ci.ecoli.df, ggplot2::aes(y= 1:nrow(ci.ecoli.df),
-                               x=ci.ecoli.df[,1], xmin=ci.ecoli.df[,2],
-                               xmax=ci.ecoli.df[,3])) +
+                                                      x=ci.ecoli.df[,1], xmin=ci.ecoli.df[,2],
+                                                      xmax=ci.ecoli.df[,3])) +
     ggplot2::geom_point() +
     ggplot2::geom_errorbarh(height=.4) +
     ggplot2::labs(title='', x='scaled pcors (95% CI)', y = '') +
@@ -151,4 +113,130 @@ c_pcor_shrunk <- function(lparams){
                    panel.background = ggplot2::element_rect(fill = "white"))
 
   print(p)
+
+}
+
+#==============================
+#' pval_pcor_shrunk
+#'
+#' @param lparams a list of parameters created using a JSON file.
+#' This file should contain the following name/value pairs.
+#'
+#' "filename": <string, required>
+#'
+#' "variables": <array, strings representing column names>
+#'
+#' "cutoff": <number, required threshold for the p-value of the partial correlation>
+#'
+#' "verbose": <boolean, required to display detailed description on the terminal>
+#'
+#' @return a plot
+#' @export
+#'
+# #' @examples
+c_pval_pcor_shrunk <- function(lparams){
+
+  # read file
+  dt <- read_data(lparams$filename,lparams$variables)
+
+  # estimate partial correlations with shrinkage
+  estimated.pcor <- GGM.shrunk(x = as.matrix(dt),
+                                     verbose = lparams$verbose)
+
+  # p-values using the new implementation Equation 6
+  pval.ttest <- ttest.shrunk(x = estimated.pcor)
+
+  GGM <- vec2sm(pval.ttest)
+  GGM <- abs(GGM) < lparams$cutoff
+  diag(GGM) <- 0
+
+
+  g1 <-
+    igraph::graph_from_adjacency_matrix(
+      abs(GGM),
+      mode = c("undirected"),
+      diag = FALSE,
+      weighted = TRUE
+    )
+
+  plot(g1,
+       edge.width = 3,
+       edge.color = "#fc8d62",
+       vertex.color = "#8da0cb", vertex.size = 3,
+       vertex.frame.color = "#8da0cb",
+       vertex.label.color = "black",
+       vertex.label.cex = 1,
+       vertex.label.dist = 1,
+       vertex.label = colnames(dt)# ,
+       #layout = igraph::layout
+  )
+
+  #print(p)
+}
+
+#==============================
+#' c_zscore_shrunk
+#'
+#' @param lparams a list of parameters created using a JSON file.
+#' This file should contain the following name/value pairs.
+#'
+#' "filename": <string, required>
+#'
+#' "variables": <array, strings representing column names>
+#'
+#' "cutoff": <number, required threshold for the p-value of the partial correlation>
+#'
+#' "verbose": <boolean, required to display detailed description on the terminal>
+#'
+#' @return a plot
+#' @export
+# #' @examples
+c_zscore_shrunk <- function(lparams){
+  # se definen dos archivos de entrada en el JSON schema y se agregan en el JSON file
+  # read file
+  data1 <- read_data(lparams$filename,lparams$variables)
+  data2 <- GeneNet::ggm.simulate.data(50, diag(ncol(data1)))
+  #read_data(lparams$filename2,lparams$variables)
+
+  estimated.pcor.1 <- GGM.shrunk(as.matrix(data1))
+  estimated.pcor.2 <- GGM.shrunk(as.matrix(data2))
+
+  # compare
+  z <- compare.GGM(x1 = estimated.pcor.1 ,
+                   x2 = estimated.pcor.2  )
+  cut = 1.96
+  id = ( z[ , 'z-score'] > cut) + 2*( z[ , 'z-score'] < -cut)
+
+  #---------------------
+  # Bland Altman plot
+  #---------------------
+  # Matrix index of the top pcors
+  id0 = order(abs(z[ , 'z-score']), decreasing = T)[1:9]
+
+  idxs = matrix(data = 1:(ncol(data1)*ncol(data1)), nrow = ncol(data1),
+                ncol = ncol(data1))
+  idxs2 = matrix(data = idxs %in% id0,
+                 nrow = ncol(data1), ncol = ncol(data1))
+  idxs3 = which(idxs2, arr.ind = T)
+
+  # 9 top names
+  #res = data.frame( 'probe1'= all_new_gene$external_gene_name[idxs3[,1]],
+  #                  'probe2' = all_new_gene$external_gene_name[idxs3[,2]] )
+  # plot
+  df = data.frame('diff' = (estimated.pcor.1 - estimated.pcor.2),
+                  'ave' = 0.5*(estimated.pcor.1 + estimated.pcor.2))
+  colnames(df) <- c('diff' , 'ave' )
+
+  plot( x = df$ave, y = df$diff,
+        pch = 20, cex= 0.5 ,
+        cex.lab = 1,  cex.axis = 1,
+        ylim = c(-0.1,0.1),
+        col = c('black'),
+        xlab = 'ave pcors B6 D2',
+        ylab = 'diff pcors B6 D2', las = 2)
+  abline(a = 0, b = 0)
+  #text(x = df$ave[id0] ,
+  #     y = df$diff[id0]*1.1 ,
+  #     labels = paste(res[,1],res[,2],sep = '-'),
+  #     cex = 0.75, adj = 1)
 }
