@@ -1,5 +1,5 @@
 {
-    "filename":"data/ecoli.csv",
+    "filename":"https://raw.githubusercontent.com/V-Bernal/GeneNetTools/venus/feature/container/GeneNetTools/tests/testthat/data/ecoli.csv",
     "verbose": true,
     "cutoff": 0.01
 }
