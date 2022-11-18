@@ -1,0 +1,6 @@
+{
+    "filename": "data/C57BL_6J.csv",
+    "filename2": "data/DBA_2J.csv",
+    "verbose": true,
+    "cutoff": 0.01
+}

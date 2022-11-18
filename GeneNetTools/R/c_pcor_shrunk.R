@@ -203,8 +203,8 @@ c_zscore_shrunk <- function(lparams){
   # se definen dos archivos de entrada en el JSON schema y se agregan en el JSON file
   # read file
   data1 <- read_data(lparams$filename,lparams$variables)
-  data2 <- GeneNet::ggm.simulate.data(50, diag(ncol(data1)))
-  #read_data(lparams$filename2,lparams$variables)
+  # data2 <- GeneNet::ggm.simulate.data(50, diag(ncol(data1)))
+  data2 <- read_data(lparams$filename2,lparams$variables)
 
   estimated.pcor.1 <- GGM.shrunk(as.matrix(data1))
   estimated.pcor.2 <- GGM.shrunk(as.matrix(data2))
