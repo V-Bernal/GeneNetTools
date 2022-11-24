@@ -212,9 +212,9 @@ c_zscore_shrunk <- function(lparams){
   # compare
   z <- compare.GGM(x1 = estimated.pcor.1 ,
                    x2 = estimated.pcor.2  )
-  cut = 1.96
+  cut = lparams$cutoff
   id = ( z[ , 'z-score'] > cut) + 2*( z[ , 'z-score'] < -cut)
-
+  id00 = which(abs( z[ , 'z-score']) > cut)
   #---------------------
   # Bland Altman plot
   #---------------------
@@ -235,7 +235,7 @@ c_zscore_shrunk <- function(lparams){
                   'ave' = 0.5*(estimated.pcor.1 + estimated.pcor.2))
   colnames(df) <- c('diff' , 'ave' )
 
-  plot( x = df$ave, y = df$diff,
+  plot( x = df$ave[id00], y = df$diff[id00],
         pch = 20, cex= 0.5 ,
         cex.lab = 1,  cex.axis = 1,
         ylim = c(-0.1,0.1),

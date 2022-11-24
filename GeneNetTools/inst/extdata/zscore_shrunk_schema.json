@@ -15,7 +15,7 @@
     },
     "cutoff": {
       "title" : "Cutoff",
-      "description": "Threshold for the p-value of the partial correlation",
+      "description": "Threshold for the z-score",
       "type": "number",
       "required": true
     },

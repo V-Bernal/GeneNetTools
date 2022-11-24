@@ -2,5 +2,5 @@
     "filename": "https://raw.githubusercontent.com/V-Bernal/GeneNetTools/venus/feature/container/GeneNetTools/tests/testthat/data/DBA_2J.csv",
     "filename2": "https://raw.githubusercontent.com/V-Bernal/GeneNetTools/venus/feature/container/GeneNetTools/tests/testthat/data/C57BL_6J.csv",
     "verbose": true,
-    "cutoff": 0.01
+    "cutoff": 1.96
 }
