@@ -21,7 +21,7 @@ This file should contain the following name/value pairs.
 "verbose": <boolean, required to display detailed description on the terminal>}
 }
 \value{
-a plot
+a scatter plot
 }
 \description{
 This function compares two networks using two data files

@@ -196,7 +196,7 @@ c_pval_pcor_shrunk <- function(lparams){
 #'
 #' "verbose": <boolean, required to display detailed description on the terminal>
 #'
-#' @return a plot
+#' @return a scatter plot
 #' @export
 # #' @examples
 c_zscore_shrunk <- function(lparams){
